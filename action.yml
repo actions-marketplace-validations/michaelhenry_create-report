@@ -21,6 +21,9 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - run: echo "markdownify==0.10.3" >> requirements.txt
+      shell: bash
+
     - name: Cache Pip
       id: pip-cache
       uses: actions/cache@v3
@@ -37,9 +40,7 @@ runs:
         python-version: '3.8.12'
         cache: 'pip'
 
-    - run: |
-        echo "markdownify==0.10.3" >> requirements.txt && \
-        pip install -r requirements.txt
+    - run: pip install -r requirements.txt
       if: steps.pip-cache.outputs.cache-hit != 'true'
       shell: bash
 
